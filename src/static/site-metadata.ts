@@ -11,7 +11,7 @@ interface ISiteMetadataResult {
 
 const data: ISiteMetadataResult = {
   siteTitle: 'Running Page',
-  siteUrl: 'https://yihong.run',
+  siteUrl: 'https://gusty1.github.io/running_page/',
   logo: 'https://github.com/Gusty1/GustyLittleWorld/blob/gh-pages/images/index/icon-rm.png?raw=true',
   description: 'Personal site and blog',
   navLinks: [

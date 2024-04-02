@@ -74,3 +74,27 @@ python3(python) run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --
 ![circular](./images/circular.png 'circular')
 
 每一個指令產生的圖表都會放在 assets 裡，裡面會有很多原作者的資料，可以不用刪掉，你的新資料會覆蓋過去，舊的也不會影響到你。
+
+# 部屬
+
+雖然文件說推薦用 Vercel，但根據他寫的 workflow 來看，根本就是 for github page，所以最後我來是用 github page。
+
+## 踩坑問題
+
+### lockfile
+
+如果是什麼 lock 檔案問題，那就是包管理器的衝突，把有關 lock 的檔案都刪掉，然後重跑一次 yarn install，應該會產生新的 yarn.lock，然後在 push 上去。
+
+### Creating Pages deployment failed
+
+我不確我的作法 484 正確的，也有可能是我沒照順序跑才出現這個錯誤，若是出現這個問題，要先去 Setting，手動設定 github page，設定完成後再回去跑 Action。
+![githubPage](./images/githubPage.png 'githubPage')
+
+### github token
+
+需要產生 github token，並且加到 Secerts
+![githubToken](./images/githubToken.png 'githubToken')
+
+# GGYY
+
+文件都是寫 pnpm，但是教學影片和我實際操作下來都是用 yarn，可能以前都是用 yarn，後面突然想轉型，但還沒轉成功，總之這個讓我遇到超多問題的。
