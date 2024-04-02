@@ -77,7 +77,7 @@ python3(python) run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --
 
 # 部屬
 
-雖然文件說推薦用 Vercel，但根據他寫的 workflow 來看，根本就是 for github page，所以最後我來是用 github page。
+雖然文件說推薦用 Vercel，但好像也必須配置 github page 才可以自動更新，總之我是都有配置啦。
 
 ## 踩坑問題
 
