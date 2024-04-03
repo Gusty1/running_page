@@ -86,7 +86,7 @@ python3(python) run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --
 
 # 部屬
 
-雖然文件說推薦用 Vercel，我個人試過後也覺得Vercel好用，github page不知為啥Actions會有問題，但如果要用自動更新(Github Actions)，github page也要設定，就參考文件的**部署到 GitHub Pages**就好。  
+文件說推薦用 Vercel，我個人試過後也覺得Vercel好用，github page不知為啥Actions會有問題，但如果要用自動更新(Github Actions)，github page也要設定，就參考文件的**部署到 GitHub Pages**就好。  
 **Github Cache** 不用動，就預設false就好  
 
 另外，GitHub Actions的env好像只能設定單一個而已，看起來不支持多環境。  
