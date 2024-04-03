@@ -43,7 +43,7 @@ yarn develop
 
 ## github.svg
 
-產生類似 github commit 的圖
+產生類似 github commit 的圖  
 ![github](./images/github.png 'github')
 
 ```
