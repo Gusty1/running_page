@@ -26,29 +26,36 @@ yarn develop
 
 ## Strava
 
-### 申請 API  
+### 申請 API
 
 基本上都跟說明得差不多，申請 API 的範例以參考圖片；圖片是修改畫面，不過初次新增畫面也差不多長這樣。  
-![stravaAPI](./images/strava.png 'stravaAPI')  
+![stravaAPI](./images/strava.png 'stravaAPI')
 
-### 取得 refreshToken  
+### 取得 refreshToken
 
 因作者的電腦 OS 是 ubuntu，所以文件說明是用 curl，但其實只要可以送出請求的工具都可以用，postman、自己寫一個程式...  
-![refreshToken](./images/refreshToken.png 'refreshToken')  
+![refreshToken](./images/refreshToken.png 'refreshToken')
 
-### 同步數據  
+### 同步數據
+
 > 第一次同步 Strava 数据时需要更改在 strava_sync.py 中的第 12 行代码 False 改为 True，运行完成后，再改为 False。
 
-因為這個會產生data.db，而之後的圖表也是根據這個db文件產生出來的，所以之後若是不更新，那資料不是都不會動嗎?  
-我是覺得這邊應該要固定成True
+因為這個會產生 data.db，而之後的圖表也是根據這個 db 文件產生出來的，所以之後若是不更新，那資料不是都不會動嗎?  
+我是覺得這邊應該要固定成 True
 
 若數據有取得成功，應該會在 run_page 裡新增一個 data.db
+
+## Garmin
+
+手邊沒資料測不出來，但是官網說如果連接 Strava，那之後上傳 garmin 的也會自動傳到 Strava，也就是說 Strava 就是爸爸，只後都只要用 Strava 就好。
+
+我有試過用 Strava to garmin，但沒有反應，這看來只是單純同步數據，而不會產生出圖表。
 
 # 產生圖表
 
 當獲取數據成功後，去找**Total Data Analysis**，有 3 個命令，3 個都要輸入，才可以產生自己的圖表。
 
-==以下命令替換參數要注意""不要換掉==  
+==以下命令替換參數要注意""不要換掉==
 
 ## github.svg
 
@@ -86,20 +93,20 @@ python3(python) run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --
 
 # 部屬
 
-文件說推薦用 Vercel，我個人試過後也覺得Vercel好用，github page不知為啥Actions會有問題，但如果要用自動更新(Github Actions)，github page也要設定，就參考文件的**部署到 GitHub Pages**就好。  
-**Github Cache** 不用動，就預設false就好  
+文件說推薦用 Vercel，我個人試過後也覺得 Vercel 好用，github page 不知為啥 Actions 會有問題，但如果要用自動更新(Github Actions)，github page 也要設定，就參考文件的**部署到 GitHub Pages**就好。  
+**Github Cache** 不用動，就預設 false 就好
 
-另外，GitHub Actions的env好像只能設定單一個而已，看起來不支持多環境。  
+另外，GitHub Actions 的 env 好像只能設定單一個而已，看起來不支持多環境。
 
 ## 踩坑問題
 
-### lockfile  
+### lockfile
 
-如果是什麼 lock 檔案問題，那就是包管理器的衝突，把有關 lock 的檔案都刪掉，然後重跑一次 yarn install，應該會產生新的 yarn.lock，然後在 push 上去。  
+如果是什麼 lock 檔案問題，那就是包管理器的衝突，把有關 lock 的檔案都刪掉，然後重跑一次 yarn install，應該會產生新的 yarn.lock，然後在 push 上去。
 
-## github token  
+## github token
 
-需要產生 github token，並且加到 Secerts，**就算部屬到Vercel也要設定Token**
+需要產生 github token，並且加到 Secerts，**就算部屬到 Vercel 也要設定 Token**
 ![githubToken](./images/githubToken.png 'githubToken')
 
 # GGYY
