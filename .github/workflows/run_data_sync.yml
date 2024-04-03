@@ -22,7 +22,7 @@ on:
 
 env:
   # please change to your own config.
-  RUN_TYPE: strava # support strava/nike/garmin/coros/garmin_cn/garmin_sync_cn_global/keep/only_gpx/only_fit/nike_to_strava/strava_to_garmin/strava_to_garmin_cn/garmin_to_strava/garmin_to_strava_cn/codoon, Please change the 'pass' it to your own
+  RUN_TYPE: strava_to_garmin # support strava/nike/garmin/coros/garmin_cn/garmin_sync_cn_global/keep/only_gpx/only_fit/nike_to_strava/strava_to_garmin/strava_to_garmin_cn/garmin_to_strava/garmin_to_strava_cn/codoon, Please change the 'pass' it to your own
   ATHLETE: Gusty
   TITLE: Gusty Running
   MIN_GRID_DISTANCE: 5 # change min distance here
@@ -119,7 +119,7 @@ jobs:
         if: env.RUN_TYPE == 'garmin'
         run: |
           # make garimin secret string `python run_page/get_garmin_secret.py ${email} ${password}
-          python run_page/garmin_sync.py ${{ secrets.GARMIN_SECRET_STRING }}
+          python run_page/garmin_sync.py ${{ secrets.GARMIN_SECRET_STRING }} --only-run
         # If you only want to sync `type running` add args --only-run, default script is to sync all data (rides and runs).
         # python run_page/garmin_sync.py ${{ secrets.GARMIN_SECRET_STRING }} --only-run
 
