@@ -7,7 +7,7 @@
 
 # 安裝及測試
 
-我個人實際用下來應該如下，作者在的影片也都是 yarn，怎麼這邊文件就變成 npm?
+我個人實際用下來應該如下，作者的教學影片也都是 yarn，怎麼到這邊文件就變成 npm?
 
 ```
 pip3 install -r requirements.txt
@@ -48,7 +48,7 @@ yarn develop
 
 當獲取數據成功後，去找**Total Data Analysis**，有 3 個命令，3 個都要輸入，才可以產生自己的圖表。
 
-==以下命令替換參數要注意""不要換掉==
+==以下命令替換參數要注意""不要換掉==  
 
 ## github.svg
 
@@ -87,7 +87,7 @@ python3(python) run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --
 # 部屬
 
 雖然文件說推薦用 Vercel，我個人試過後也覺得Vercel好用，github page不知為啥Actions會有問題，但如果要用自動更新(Github Actions)，github page也要設定，就參考文件的**部署到 GitHub Pages**就好。  
-Github Cache 不用動，就預設false就好  
+**Github Cache** 不用動，就預設false就好  
 
 另外，GitHub Actions的env好像只能設定單一個而已，看起來不支持多環境。  
 
@@ -99,7 +99,7 @@ Github Cache 不用動，就預設false就好
 
 ## github token  
 
-需要產生 github token，並且加到 Secerts，**就算只用Vercel也要設定Token**
+需要產生 github token，並且加到 Secerts，**就算部屬到Vercel也要設定Token**
 ![githubToken](./images/githubToken.png 'githubToken')
 
 # GGYY
