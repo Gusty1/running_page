@@ -1,6 +1,6 @@
 // const
 const MAPBOX_TOKEN =
-   'sk.eyJ1IjoiZ3VzdHl5IiwiYSI6ImNsdWpsc2ZrbjBjOGkyaWxpcXh1dHlka2kifQ.7sX_1lFXxRnhSEaso2MLZQ';
+   'pk.eyJ1IjoiZ3VzdHl5IiwiYSI6ImNsdWpsYzlmbzBnNWUyaW9sNDNpM2FnMmkifQ.3HwFat2ipZRq9vSBXAAyvA';
 const MUNICIPALITY_CITIES_ARR = [
    '北京市',
    '上海市',
