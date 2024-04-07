@@ -7,7 +7,7 @@
 
 # 安裝及測試
 
-我個人實際用下來應該如下，作者的教學影片也都是 yarn，怎麼到這邊文件就變成 npm?
+我個人實際用下來指令應該如下，作者的教學影片也都是 yarn，怎麼到這邊文件就變成 npm?
 
 ```
 pip3 install -r requirements.txt
@@ -28,7 +28,7 @@ yarn develop
 
 ### 申請 API
 
-基本上都跟說明得差不多，申請 API 的範例以參考圖片；圖片是修改畫面，不過初次新增畫面也差不多長這樣。  
+基本上都跟說明得差不多，申請 API 的範例請參考圖片；圖片是修改畫面，不過初次新增畫面也差不多長這樣。  
 ![stravaAPI](./images/strava.png 'stravaAPI')
 
 ### 取得 refreshToken
@@ -47,9 +47,11 @@ yarn develop
 
 ## Garmin
 
-手邊沒資料測不出來，但是官網說如果連接 Strava，那之後上傳 garmin 的也會自動傳到 Strava，也就是說 Strava 就是爸爸，只後都只要用 Strava 就好。
+Garmin 的 APP 可以設定連接 Strava，連結完成後數據也會自動同步，所以我覺得設定 Strava 就好；但我想純用 Garmin 應該也是差不多，照文件操作就可以了。
 
-我有試過用 Strava to garmin，但沒有反應，這看來只是單純同步數據，而不會產生出圖表。
+## Strava to garmin
+
+我試過用 Strava to garmin，但沒有反應，這看來只是單純同步數據，而不會產生出圖表，而且 Garmin 若設定同步，那 Strava 也會有資料，感覺這個很意義不明。
 
 # 產生圖表
 
