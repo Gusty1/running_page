@@ -48,7 +48,7 @@ Garmin 的 APP 可以設定連接 Strava，連結完成後數據也會自動同�
 
 ```
 python run_page/gen_svg.py --from-db --title "Gusty Running" --type github --athlete Gusty --output assets/github.svg --special-distance 5 --special-distance2 10 --special-color yellow --special-color2 red --use-localtime --min-distance 1
-python run_page/gen_svg.py --from-db --title "Over 5km Runs" --type grid --athlete "Gusty" --output assets/grid.svg --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --use-localtime --min-distance 1
+python run_page/gen_svg.py --from-db --title "Over 1km Runs" --type grid --athlete "Gusty" --output assets/grid.svg --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --use-localtime --min-distance 1
 python run_page/gen_svg.py --from-db --type circular --use-localtime
 ```
 
