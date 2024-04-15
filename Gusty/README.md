@@ -47,8 +47,8 @@ Garmin 的 APP 可以設定連接 Strava，連結完成後數據也會自動同�
 總而言之，複製以下程式碼，然後執行就對了
 
 ```
-python run_page/gen_svg.py --from-db --title "Gusty Running" --type github --athlete Gusty --output assets/github.svg --special-distance 5 --special-distance2 10 --special-color yellow --special-color2 red --use-localtime --min-distance 5
-python run_page/gen_svg.py --from-db --title "Over 5km Runs" --type grid --athlete "Gusty" --output assets/grid.svg --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --use-localtime --min-distance 5
+python run_page/gen_svg.py --from-db --title "Gusty Running" --type github --athlete Gusty --output assets/github.svg --special-distance 5 --special-distance2 10 --special-color yellow --special-color2 red --use-localtime --min-distance 1
+python run_page/gen_svg.py --from-db --title "Over 5km Runs" --type grid --athlete "Gusty" --output assets/grid.svg --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --use-localtime --min-distance 1
 python run_page/gen_svg.py --from-db --type circular --use-localtime
 ```
 
@@ -58,7 +58,7 @@ python run_page/gen_svg.py --from-db --type circular --use-localtime
 
 若github action有設定成功，那前面獲取數據和產生圖表都會每天自動更新，什麼時候我不知道，應該是半夜，所以上面的指令就是本地測試看看有沒有問題而已。
 
-作者有設定github action就算產生了新的圖表也不會commit上去，可以手動關掉，但我覺得不要commit的比教好。
+作者有設定github action就算產生了新的圖表也不會commit上去，可以手動關掉，但我覺得不要commit的比較好。
 
 ## 踩坑問題
 
