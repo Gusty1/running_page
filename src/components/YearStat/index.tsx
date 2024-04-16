@@ -55,7 +55,8 @@ const YearStat = ({ year, onClick }: { year: string, onClick: (_year: string) =>
       {...eventHandlers}
     >
       <section>
-        <Stat value={year} description=" Journey" />
+        {/*<Stat value={year} description=" Journey" />*/}
+        <Stat value={year} description=" 跑步旅程" />
         <Stat value={runs.length} description=" Runs" />
         <Stat value={sumDistance} description=" KM" />
         <Stat value={avgPace} description=" Avg Pace" />
