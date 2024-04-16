@@ -48,10 +48,11 @@ const IS_CHINESE = true;
 const USE_ANIMATION_FOR_GRID = false;
 const CHINESE_INFO_MESSAGE = (yearLength: number, year: string): string => {
   const yearStr = year === 'Total' ? '所有' : ` ${year} `;
-  return `我用 App 記錄自己跑步 ${yearLength} 年了，下面列表展示的是${yearStr}的數據`;
+  //return `我用 App 記錄自己跑步 ${yearLength} 年了，下面列表展示的是${yearStr}的數據`;
+  return `向前跑很簡單，難的是堅持向前跑`;
 };
 const ENGLISH_INFO_MESSAGE = (yearLength: number, year: string): string =>
-  `跑步是一個天天都存在的大問號,它會問你：『你今天要當膽小鬼，還是要堅強 ?』—前加拿大馬拉松選手，彼得.馬赫`;
+  `It does not matter how slowly you run, as long as you do not stop。`;
 
 // not support English for now
 const CHINESE_LOCATION_INFO_MESSAGE_FIRST =
