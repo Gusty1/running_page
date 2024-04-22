@@ -60,6 +60,8 @@ python run_page/gen_svg.py --from-db --type circular --use-localtime
 
 作者有設定github action就算產生了新的圖表也不會commit上去，可以手動關掉，但我覺得不要commit的比較好。
 
+github action 排程定期執行時間是美國半夜1點，換算台灣時間大概是上午9點。
+
 ## 踩坑問題
 
 ### lockfile
