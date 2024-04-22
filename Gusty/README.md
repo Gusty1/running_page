@@ -64,10 +64,10 @@ python run_page/gen_svg.py --from-db --type circular --use-localtime
 
 總之排程時間會看不太出來，而且也會有時區問題，可以改workflows，來印出顯示時間，但我不懂怕弄壞，所以用plan B
 
-顯示所有action的紀錄，裡面的created_at就是執行時間，但顯示時間是有加時區的，不懂就去問AI
+顯示所有action的紀錄，裡面的created_at就是執行時間，但顯示時間是有加時區的，不懂就去問AI  
 <https://api.github.com/repos/gusty1/running_page/actions/runs>
 
-如果你知道action id 可以用下面這個
+如果你知道action id 可以用下面這個  
 <https://api.github.com/repos/gusty1/running_page/actions/runs/{id}>
 
 ## 踩坑問題
