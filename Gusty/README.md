@@ -26,7 +26,7 @@ yarn develop
 
 ## Strava
 
-<s>原本想直接貼指令的，後來想到指令有token...</s>
+~~原本想直接貼指令的，後來想到指令有 token...~~
 
 ### 申請 API
 
@@ -37,6 +37,8 @@ yarn develop
 
 因作者的電腦 OS 是 ubuntu，所以文件說明是用 curl，但其實只要可以送出請求的工具都可以用，postman、自己寫一個程式...  
 ![refreshToken](./images/refreshToken.png 'refreshToken')
+
+==refreshToken==是有期限的，不能設定永久，就我個人感覺大概是 4 個月會到期，到期後 github Action 就會失敗，他會寄 mail 通知你失敗，所以記得要重新取得。
 
 ## Garmin
 
@@ -54,31 +56,31 @@ python run_page/gen_svg.py --from-db --type circular --use-localtime
 
 # 部屬
 
-文件說推薦用 Vercel，但Vercel實在是不太熟，有時候gh-Page有，但Vercel就是沒有；而且影片也都是教gh-page，所以後來我又改回gh-page了。
+文件說推薦用 Vercel，但 Vercel 實在是不太熟，有時候 gh-Page 有，但 Vercel 就是沒有；而且影片也都是教 gh-page，所以後來我又改回 gh-page 了。
 
-若github action有設定成功，那前面獲取數據和產生圖表都會每天自動更新，什麼時候我不知道，應該是半夜，所以上面的指令就是本地測試看看有沒有問題而已。
+若 github action 有設定成功，那前面獲取數據和產生圖表都會每天自動更新，什麼時候我不知道，應該是半夜，所以上面的指令就是本地測試看看有沒有問題而已。
 
-作者有設定github action就算產生了新的圖表也不會commit上去，可以手動關掉，但我覺得不要commit的比較好。
+作者有設定 github action 就算產生了新的圖表也不會 commit 上去，可以手動關掉，但我覺得不要 commit 的比較好。
 
-## 排程時間
+# 排程時間
 
-總之排程時間會看不太出來，而且也會有時區問題，可以改workflows，來印出顯示時間，但我不懂怕弄壞，所以用plan B
+總之排程時間會看不太出來，而且也會有時區問題，可以改 workflows，來印出顯示時間，但我不懂怕弄壞，所以用 plan B
 
-顯示所有action的紀錄，裡面的created_at就是執行時間，但顯示時間是有加時區的，不懂就去問AI  
+顯示所有 action 的紀錄，裡面的 created_at 就是執行時間，但顯示時間是有加時區的，不懂就去問 AI  
 <https://api.github.com/repos/gusty1/running_page/actions/runs>
 
-如果你知道action id 可以用下面這個  
+如果你知道 action id 可以用下面這個  
 <https://api.github.com/repos/gusty1/running_page/actions/runs/{id}>
 
-## 踩坑問題
+# 踩坑問題
 
-### lockfile
+## lockfile
 
 如果是什麼 lock 檔案問題，那就是包管理器的衝突，把有關 lock 的檔案都刪掉，然後重跑一次 yarn install，應該會產生新的 yarn.lock，然後在 push 上去。
 
-## github token
+# github token
 
-需要產生 github token，並且加到 Secerts，**就算部屬到 Vercel 也要設定 Token**
+需要產生 github token，並且加到 Secerts，**就算部屬到 Vercel 也要設定 Token**，後面發現這個好像都沒有用到...
 ![githubToken](./images/githubToken.png 'githubToken')
 
 # GGYY
