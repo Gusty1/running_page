@@ -75,6 +75,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Get pnpm store directory
         shell: bash
         run: |
