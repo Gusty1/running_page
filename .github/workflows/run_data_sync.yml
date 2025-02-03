@@ -57,7 +57,7 @@ jobs:
 
       - name: Debug Files before caching
         run: |
-          ls -l ../ctivities
+          ls -l ../activities
           ls -l ../assets
           ls -l ../GPX_OUT
           ls -l ../TCX_OUT
