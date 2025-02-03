@@ -51,16 +51,10 @@ jobs:
       BUILD_GH_PAGES: ${{ steps.set_output.outputs.BUILD_GH_PAGES }}
 
     steps:
-      - name: Debug Files before caching
+      - name: Debug current directory
         run: |
-          ls -l ./activities
-          ls -l ./assets
-          ls -l ./GPX_OUT
-          ls -l ./TCX_OUT
-          ls -l ./FIT_OUT
-          ls -l ./Workouts
-          ls -l ./run_page/data.db
-
+         echo "Current directory is: $(pwd)"
+         
       - name: Checkout
         uses: actions/checkout@v4
 
