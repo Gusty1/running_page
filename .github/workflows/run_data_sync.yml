@@ -51,20 +51,6 @@ jobs:
       BUILD_GH_PAGES: ${{ steps.set_output.outputs.BUILD_GH_PAGES }}
 
     steps:
-
-      - name: Check if paths exist and have content
-        run: |
-          echo "Checking directories:"
-          ls -l activities || echo "activities not found"
-          ls -l assets || echo "assets not found"
-          ls -l GPX_OUT || echo "GPX_OUT not found"
-          ls -l TCX_OUT || echo "TCX_OUT not found"
-          ls -l FIT_OUT || echo "FIT_OUT not found"
-          ls -l Workouts || echo "Workouts not found"
-          ls -l run_page/data.db || echo "data.db not found"
-          ls -l src/static/activities.json || echo "activities.json not found"
-
-    
       - name: Checkout
         uses: actions/checkout@v4
 
