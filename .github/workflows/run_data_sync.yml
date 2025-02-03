@@ -71,21 +71,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            activities
-            assets
-            GPX_OUT
-            TCX_OUT
-            FIT_OUT
-            Workouts
             run_page/data.db
             src/static/activities.json
-            imported.json
           key: ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-${{ github.run_id }}
           restore-keys: |
             ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-
             ${{ env.DATA_CACHE_PREFIX }}-
-        env:
-          STORE_PATH: ./path/to/store
 
       - name: Run sync Nike script
         if: env.RUN_TYPE == 'nike'
