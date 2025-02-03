@@ -51,10 +51,9 @@ jobs:
       BUILD_GH_PAGES: ${{ steps.set_output.outputs.BUILD_GH_PAGES }}
 
     steps:
-      - name: Print the directory structure
+      - name: List files in parent directory
         run: |
-          echo "Current directory: $(pwd)"
-          ls -R # 列出當前目錄及所有子目錄
+          ls -R /home/runner/work/running_page
       
       - name: Checkout
         uses: actions/checkout@v4
