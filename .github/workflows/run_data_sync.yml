@@ -60,6 +60,11 @@ jobs:
           ls -l /home/runner/work/running_page
           ls -l /home/runner/work/running_page/running_page
 
+      - name: List files in the current directory
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -l  # 顯示所有檔案和資料夾
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -82,15 +87,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            activities
-            assets
-            GPX_OUT
-            TCX_OUT
-            FIT_OUT
-            Workouts
-            run_page/data.db
-            src/static/activities.json
-            imported.json
+            ../activities
+            ../assets
+            ../GPX_OUT
+            ../TCX_OUT
+            ../FIT_OUT
+            ../Workouts
+            ../run_page/data.db
+            ../src/static/activities.json
+            ../imported.json
           key: ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-${{ github.run_id }}
           restore-keys: |
             ${{ env.DATA_CACHE_PREFIX }}-${{ github.sha }}-
