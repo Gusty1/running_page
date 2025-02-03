@@ -74,9 +74,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      - name: Enable corepack
-        run: corepack enable
 
       - name: Get pnpm store directory
         shell: bash
