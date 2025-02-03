@@ -65,6 +65,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install black  # 安裝 black
+
+      - name: Run black --check (optional)
+        run: |
+          black .  # 直接格式化代碼
 
       - name: Cache Data Files
         if: env.SAVE_DATA_IN_GITHUB_CACHE == 'true'
