@@ -54,6 +54,16 @@ jobs:
       - name: Debug current directory
         run: |
          echo "Current directory is: $(pwd)"
+
+      - name: Debug Files before caching
+        run: |
+          ls -l ../ctivities
+          ls -l ../assets
+          ls -l ../GPX_OUT
+          ls -l ../TCX_OUT
+          ls -l ../FIT_OUT
+          ls -l ../Workouts
+          ls -l ../run_page/data.db
          
       - name: Checkout
         uses: actions/checkout@v4
