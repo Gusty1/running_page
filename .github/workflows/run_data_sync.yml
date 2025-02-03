@@ -51,10 +51,6 @@ jobs:
       BUILD_GH_PAGES: ${{ steps.set_output.outputs.BUILD_GH_PAGES }}
 
     steps:
-      - name: List files in parent directory
-        run: |
-          ls -R /home/runner/work/running_page
-      
       - name: Checkout
         uses: actions/checkout@v4
         with:
