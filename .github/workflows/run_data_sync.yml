@@ -73,7 +73,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            activities
+            ./running_page/activities
             assets
             GPX_OUT
             TCX_OUT
