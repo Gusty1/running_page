@@ -55,18 +55,15 @@ jobs:
         run: |
          echo "Current directory is: $(pwd)"
 
-      - name: Debug Files before caching
+      - name: List files from the root directory
         run: |
-          ls -l ../activities
-          ls -l ../assets
-          ls -l ../GPX_OUT
-          ls -l ../TCX_OUT
-          ls -l ../FIT_OUT
-          ls -l ../Workouts
-          ls -l ../run_page/data.db
-         
+          ls -l /home/runner/work/running_page
+          ls -l /home/runner/work/running_page/running_page
+
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 确保所有历史和文件都被拉取
 
       - name: Set up Python
         id: setup_python
