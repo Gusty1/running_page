@@ -9,7 +9,7 @@
 獲取跑步數據的方法我覺得官方文件的說明已經很詳細了，我個人是建議用`strava`就好，strava可以跟其他運動app連結，最後資料都會跑到strava裡面。
 
 - 注意事項:
-  - strava的`refreshToken`是有期限的，大約半年左右吧，總之當你數據獲取失敗先懷疑是不是refreshToken過期
+  - strava的`refreshToken`是有期限的，大約半年、3個月左右吧，總之當你數據獲取失敗先懷疑是不是refreshToken過期
 
 ## 部屬
 
