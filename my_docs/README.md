@@ -16,3 +16,33 @@
 官方是建議用vercel，但我當初看他的部屬影片是用的是github pages，而且我也有用過github pages，所以就沒有用vercel；不知道是不沒有用vercel，每過一段時間merge一些更新就會出問題，然後每次都要排查很久，都不知道浪費了多少時間在這邊。
 
 ==通常actions報錯的時候看一下上下文，不一定是當前出現的錯誤訊息==
+
+## 更新本地資料
+
+```terminal
+ python run_page/gen_svg.py --from-db --title "Gusty Running" --type github --github-style "align-firstday" --athlete "Gusty" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
+
+python run_page/gen_svg.py --from-db --title "Over 1km Runs" --type grid --athlete "Gusty" --output assets/grid.svg --special-color yellow --special-color2 red --special-distance 10 --special-distance2 20 --use-localtime --min-distance 1
+
+python run_page/gen_svg.py --from-db --type circular --use-localtime
+
+# 取得當前年份
+$year = (Get-Date).Year
+
+# 執行 Python 指令
+python run_page/gen_svg.py `
+  --from-db `
+  --year $year `
+  --language zh_CN `
+  --title "$year Running" `
+  --type github `
+  --github-style "align-firstday" `
+  --athlete "Gusty" `
+  --special-distance 10 `
+  --special-distance2 20 `
+  --special-color yellow `
+  --special-color2 red `
+  --output "assets/github_$year.svg" `
+  --use-localtime `
+  --min-distance 1
+```
