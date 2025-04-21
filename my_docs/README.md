@@ -17,6 +17,20 @@
 
 ==通常actions報錯的時候看一下上下文，不一定是當前出現的錯誤訊息==
 
+## Anaconda
+
+```terminal
+# 查看板本，驗證anaconda有沒有安裝成功
+conda --version
+```
+
+```terminal
+# 建立python 3.11虛擬環境
+conda create -n py311 python=3.11
+# 啟動python 3.11虛擬環境
+conda activate py311
+```
+
 ## 更新本地資料
 
 ```terminal
