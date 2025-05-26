@@ -5,15 +5,14 @@ Copy most code from https://github.com/cyberjunky/python-garminconnect
 
 import argparse
 import asyncio
-import json
 import logging
 import os
-import re
 import sys
 import time
 import traceback
 import zipfile
 from io import BytesIO
+from lxml import etree
 
 import aiofiles
 import cloudscraper
@@ -21,7 +20,6 @@ import garth
 import httpx
 from config import FOLDER_DICT, JSON_FILE, SQL_FILE, config
 from garmin_device_adaptor import wrap_device_info
-from tenacity import retry, stop_after_attempt, wait_fixed
 from utils import make_activities_file
 
 # logging.basicConfig(level=logging.DEBUG)
@@ -29,26 +27,20 @@ logger = logging.getLogger(__name__)
 
 TIME_OUT = httpx.Timeout(240.0, connect=360.0)
 GARMIN_COM_URL_DICT = {
-    "BASE_URL": "https://connectapi.garmin.com",
     "SSO_URL_ORIGIN": "https://sso.garmin.com",
     "SSO_URL": "https://sso.garmin.com/sso",
-    # "MODERN_URL": "https://connect.garmin.com/modern",
     "MODERN_URL": "https://connectapi.garmin.com",
     "SIGNIN_URL": "https://sso.garmin.com/sso/signin",
-    "CSS_URL": "https://static.garmincdn.com/com.garmin.connect/ui/css/gauth-custom-v1.2-min.css",
-    "UPLOAD_URL": "https://connectapi.garmin.com/upload-service/upload/.gpx",
+    "UPLOAD_URL": "https://connectapi.garmin.com/upload-service/upload/",
     "ACTIVITY_URL": "https://connectapi.garmin.com/activity-service/activity/{activity_id}",
 }
 
 GARMIN_CN_URL_DICT = {
-    "BASE_URL": "https://connectapi.garmin.cn",
     "SSO_URL_ORIGIN": "https://sso.garmin.com",
     "SSO_URL": "https://sso.garmin.cn/sso",
-    # "MODERN_URL": "https://connect.garmin.cn/modern",
     "MODERN_URL": "https://connectapi.garmin.cn",
     "SIGNIN_URL": "https://sso.garmin.cn/sso/signin",
-    "CSS_URL": "https://static.garmincdn.cn/cn.garmin.connect/ui/css/gauth-custom-v1.2-min.css",
-    "UPLOAD_URL": "https://connectapi.garmin.cn/upload-service/upload/.gpx",
+    "UPLOAD_URL": "https://connectapi.garmin.cn/upload-service/upload/",
     "ACTIVITY_URL": "https://connectapi.garmin.cn/activity-service/activity/{activity_id}",
 }
 
@@ -65,8 +57,10 @@ class Garmin:
             if auth_domain and str(auth_domain).upper() == "CN"
             else GARMIN_COM_URL_DICT
         )
+        if auth_domain and str(auth_domain).upper() == "CN":
+            garth.configure(domain="garmin.cn")
         self.modern_url = self.URL_DICT.get("MODERN_URL")
-        garth.resume_from_string(secret_string)
+        garth.client.loads(secret_string)
         if garth.client.oauth2_token.expired:
             garth.client.refresh_oauth2()
 
@@ -104,7 +98,6 @@ class Garmin:
                     "Exception occurred during data retrieval - perhaps session expired - trying relogin: %s"
                     % err
                 )
-                self.login()
                 await self.fetch_data(url, retrying=True)
 
     async def get_activities(self, start, limit):
@@ -116,6 +109,13 @@ class Garmin:
             url = url + "&activityType=running"
         return await self.fetch_data(url)
 
+    async def get_activity_summary(self, activity_id):
+        """
+        Fetch activity summary
+        """
+        url = f"{self.modern_url}/activity-service/activity/{activity_id}"
+        return await self.fetch_data(url)
+
     async def download_activity(self, activity_id, file_type="gpx"):
         url = f"{self.modern_url}/download-service/export/{file_type}/activity/{activity_id}"
         if file_type == "fit":
@@ -125,39 +125,11 @@ class Garmin:
         response.raise_for_status()
         return response.read()
 
-    async def upload_activities(self, files):
-        for file, garmin_type in files:
-            files = {"data": ("file.gpx", file)}
-            try:
-                res = await self.req.post(
-                    self.upload_url, files=files, headers={"nk": "NT"}
-                )
-            except Exception as e:
-                print(str(e))
-                # just pass for now
-                continue
-            try:
-                resp = res.json()["detailedImportResult"]
-            except Exception as e:
-                print(e)
-                raise Exception("failed to upload")
-            # change the type
-            if resp["successes"]:
-                activity_id = resp["successes"][0]["internalId"]
-                print(f"id {activity_id} uploaded...")
-                data = {"activityTypeDTO": {"typeKey": garmin_type}}
-                encoding_headers = {"Content-Type": "application/json; charset=UTF-8"}
-                r = await self.req.put(
-                    self.activity_url.format(activity_id=activity_id),
-                    data=json.dumps(data),
-                    headers=encoding_headers,
-                )
-                r.raise_for_status()
-        await self.req.aclose()
-
-    async def upload_activities_original(self, datas, use_fake_garmin_device=False):
+    async def upload_activities_original_from_strava(
+        self, datas, use_fake_garmin_device=False
+    ):
         print(
-            "start upload activities to garmin!!!, use_fake_garmin_device:",
+            "start upload activities to garmin!, use_fake_garmin_device:",
             use_fake_garmin_device,
         )
         for data in datas:
@@ -171,11 +143,11 @@ class Garmin:
                 file_body = wrap_device_info(f)
             else:
                 file_body = BytesIO(f.read())
-            files = {"data": (data.filename, file_body)}
+            files = {"file": (data.filename, file_body)}
 
             try:
                 res = await self.req.post(
-                    self.upload_url, files=files, headers={"nk": "NT"}
+                    self.upload_url, files=files, headers=self.headers
                 )
                 os.remove(data.filename)
                 f.close()
@@ -188,6 +160,38 @@ class Garmin:
                 print("garmin upload success: ", resp)
             except Exception as e:
                 print("garmin upload failed: ", e)
+        await self.req.aclose()
+
+    async def upload_activity_from_file(self, file):
+        print("Uploading " + str(file))
+        f = open(file, "rb")
+
+        file_body = BytesIO(f.read())
+        files = {"file": (file, file_body)}
+
+        try:
+            res = await self.req.post(
+                self.upload_url, files=files, headers=self.headers
+            )
+            f.close()
+        except Exception as e:
+            print(str(e))
+            # just pass for now
+            return
+        try:
+            resp = res.json()["detailedImportResult"]
+            print("garmin upload success: ", resp)
+        except Exception as e:
+            print("garmin upload failed: ", e)
+
+    async def upload_activities_files(self, files):
+        print("start upload activities to garmin!")
+
+        await gather_with_concurrency(
+            10,
+            [self.upload_activity_from_file(file=f) for f in files],
+        )
+
         await self.req.aclose()
 
 
@@ -224,10 +228,50 @@ class GarminConnectAuthenticationError(Exception):
         self.status = status
 
 
-async def download_garmin_data(client, activity_id, file_type="gpx"):
+def get_info_text_value(summary_infos, key_name):
+    if summary_infos.get(key_name) is None:
+        return ""
+    return str(summary_infos.get(key_name))
+
+
+def create_element(parent, tag, text):
+    elem = etree.SubElement(parent, tag)
+    elem.text = text
+    elem.tail = "\n"
+    return elem
+
+
+def add_summary_info(file_data, summary_infos, fields=None):
+    if summary_infos is None:
+        return file_data
+    try:
+        root = etree.fromstring(file_data)
+        extensions_node = etree.Element("extensions")
+        extensions_node.text = "\n"
+        extensions_node.tail = "\n"
+        if fields is None:
+            fields = ["distance", "average_hr", "average_speed"]
+        for field in fields:
+            create_element(
+                extensions_node, field, get_info_text_value(summary_infos, field)
+            )
+        root.insert(0, extensions_node)
+        return etree.tostring(root, encoding="utf-8", pretty_print=True)
+    except etree.XMLSyntaxError as e:
+        print(f"Failed to parse file data: {str(e)}")
+    except Exception as e:
+        print(f"Failed to append summary info to file data: {str(e)}")
+    return file_data
+
+
+async def download_garmin_data(
+    client, activity_id, file_type="gpx", summary_infos=None
+):
     folder = FOLDER_DICT.get(file_type, "gpx")
     try:
         file_data = await client.download_activity(activity_id, file_type=file_type)
+        if summary_infos is not None:
+            file_data = add_summary_info(file_data, summary_infos.get(activity_id))
         file_path = os.path.join(folder, f"{activity_id}.{file_type}")
         need_unzip = False
         if file_type == "fit":
@@ -239,10 +283,18 @@ async def download_garmin_data(client, activity_id, file_type="gpx"):
             zip_file = zipfile.ZipFile(file_path, "r")
             for file_info in zip_file.infolist():
                 zip_file.extract(file_info, folder)
-                os.rename(
-                    os.path.join(folder, f"{activity_id}_ACTIVITY.fit"),
-                    os.path.join(folder, f"{activity_id}.fit"),
-                )
+                if file_info.filename.endswith(".fit"):
+                    os.rename(
+                        os.path.join(folder, f"{activity_id}_ACTIVITY.fit"),
+                        os.path.join(folder, f"{activity_id}.fit"),
+                    )
+                elif file_info.filename.endswith(".gpx"):
+                    os.rename(
+                        os.path.join(folder, f"{activity_id}_ACTIVITY.gpx"),
+                        os.path.join(FOLDER_DICT["gpx"], f"{activity_id}.gpx"),
+                    )
+                else:
+                    os.remove(os.path.join(folder, file_info.filename))
             os.remove(file_path)
     except Exception as e:
         print(f"Failed to download activity {activity_id}: {str(e)}")
@@ -273,6 +325,18 @@ def get_downloaded_ids(folder):
     return [i.split(".")[0] for i in os.listdir(folder) if not i.startswith(".")]
 
 
+def get_garmin_summary_infos(activity_summary, activity_id):
+    garmin_summary_infos = {}
+    try:
+        summary_dto = activity_summary.get("summaryDTO")
+        garmin_summary_infos["distance"] = summary_dto.get("distance")
+        garmin_summary_infos["average_hr"] = summary_dto.get("averageHR")
+        garmin_summary_infos["average_speed"] = summary_dto.get("averageSpeed")
+    except Exception as e:
+        print(f"Failed to get activity summary {activity_id}: {str(e)}")
+    return garmin_summary_infos
+
+
 async def download_new_activities(
     secret_string, auth_domain, downloaded_ids, is_only_running, folder, file_type
 ):
@@ -283,18 +347,34 @@ async def download_new_activities(
     to_generate_garmin_ids = list(set(activity_ids) - set(downloaded_ids))
     print(f"{len(to_generate_garmin_ids)} new activities to be downloaded")
 
+    to_generate_garmin_id2title = {}
+    garmin_summary_infos_dict = {}
+    for id in to_generate_garmin_ids:
+        try:
+            activity_summary = await client.get_activity_summary(id)
+            activity_title = activity_summary.get("activityName", "")
+            to_generate_garmin_id2title[id] = activity_title
+            garmin_summary_infos_dict[id] = get_garmin_summary_infos(
+                activity_summary, id
+            )
+        except Exception as e:
+            print(f"Failed to get activity summary {id}: {str(e)}")
+            continue
+
     start_time = time.time()
     await gather_with_concurrency(
         10,
         [
-            download_garmin_data(client, id, file_type=file_type)
+            download_garmin_data(
+                client, id, file_type=file_type, summary_infos=garmin_summary_infos_dict
+            )
             for id in to_generate_garmin_ids
         ],
     )
     print(f"Download finished. Elapsed {time.time()-start_time} seconds")
 
     await client.req.aclose()
-    return to_generate_garmin_ids
+    return to_generate_garmin_ids, to_generate_garmin_id2title
 
 
 if __name__ == "__main__":
@@ -346,6 +426,14 @@ if __name__ == "__main__":
         os.mkdir(folder)
     downloaded_ids = get_downloaded_ids(folder)
 
+    if file_type == "fit":
+        gpx_folder = FOLDER_DICT["gpx"]
+        if not os.path.exists(gpx_folder):
+            os.mkdir(gpx_folder)
+        downloaded_gpx_ids = get_downloaded_ids(gpx_folder)
+        # merge downloaded_ids:list
+        downloaded_ids = list(set(downloaded_ids + downloaded_gpx_ids))
+
     loop = asyncio.get_event_loop()
     future = asyncio.ensure_future(
         download_new_activities(
@@ -358,4 +446,16 @@ if __name__ == "__main__":
         )
     )
     loop.run_until_complete(future)
-    make_activities_file(SQL_FILE, folder, JSON_FILE, file_suffix=file_type)
+    new_ids, id2title = future.result()
+    # fit may contain gpx(maybe upload by user)
+    if file_type == "fit":
+        make_activities_file(
+            SQL_FILE,
+            FOLDER_DICT["gpx"],
+            JSON_FILE,
+            file_suffix="gpx",
+            activity_title_dict=id2title,
+        )
+    make_activities_file(
+        SQL_FILE, folder, JSON_FILE, file_suffix=file_type, activity_title_dict=id2title
+    )
