@@ -239,9 +239,9 @@ const MAPBOX_TOKEN =
 > 在使用默认的地图服务样式之外，你可以通过修改 src/utils/const.ts 文件中的以下配置项来自定义地图显示。
 
 ```typescript
-const MAP_TILE_VENDOR = "maptiler"
-const MAP_TILE_STYLE = "winter-dark"
-const MAP_TILE_ACCESS_TOKEN = "你的access token"
+const MAP_TILE_VENDOR = 'maptiler';
+const MAP_TILE_STYLE = 'winter-dark';
+const MAP_TILE_ACCESS_TOKEN = '你的access token';
 ```
 
 目前，支持的MAP_TILE_VENDOR选项包括：
@@ -976,7 +976,8 @@ python run_page/nike_to_strava_sync.py eyJhbGciThiMTItNGIw******  xxx xxx xxx
 
 <br>
 
-1. 完成 garmin 和 strava 的步骤，同时，还需要在 GitHub Actions secret 那新增 Strava 配置：`secrets.STRAVA_EMAIL`、`secrets.STRAVA_PASSWORD`
+1. 完成 garmin 和 strava 的步骤，同时，还需要在 GitHub Actions secret 那新增 Strava 配置：`secrets.STRAVA_EMAIL`、`secrets.STRAVA_PASSWORD`, `secrets.STRAVA_JWT`, 注意: `STRAVA_JWT` 优先级比 `STRAVA_EMAIL` 和 `STRAVA_PASSWORD` 高， `STRAVA_JWT` 为Strava 网页端登录后 Cookie 的`strava_remember_token`字段
+
 2. 在项目根目录下执行：
 
    ```bash
