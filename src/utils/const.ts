@@ -76,21 +76,21 @@ const EVENING_RUN_TITLE = IS_CHINESE ? '傍晚跑步' : 'Evening Run';
 const NIGHT_RUN_TITLE = IS_CHINESE ? '夜晚跑步' : 'Night Run';
 const RUN_GENERIC_TITLE = IS_CHINESE ? '跑步' : 'Run';
 const RUN_TRAIL_TITLE = IS_CHINESE ? '越野跑' : 'Trail Run';
-const RUN_TREADMILL_TITLE = IS_CHINESE ? '跑步机' : 'Treadmill Run';
+const RUN_TREADMILL_TITLE = IS_CHINESE ? '跑步機' : 'Treadmill Run';
 const HIKING_TITLE = IS_CHINESE ? '徒步' : 'Hiking';
-const CYCLING_TITLE = IS_CHINESE ? '骑行' : 'Cycling';
+const CYCLING_TITLE = IS_CHINESE ? '騎行' : 'Cycling';
 const SKIING_TITLE = IS_CHINESE ? '滑雪' : 'Skiing';
 const WALKING_TITLE = IS_CHINESE ? '步行' : 'Walking';
 const SWIMMING_TITLE = IS_CHINESE ? '游泳' : 'Swimming';
 const ALL_TITLE = IS_CHINESE ? '所有' : 'All';
-const ACTIVITY_COUNT_TITLE = IS_CHINESE ? '活动次数' : 'Activity Count';
-const MAX_DISTANCE_TITLE = IS_CHINESE ? '最远距离' : 'Max Distance';
+const ACTIVITY_COUNT_TITLE = IS_CHINESE ? '活動次數' : 'Activity Count';
+const MAX_DISTANCE_TITLE = IS_CHINESE ? '最遠距離' : 'Max Distance';
 const MAX_SPEED_TITLE = IS_CHINESE ? '最快速度' : 'Max Speed';
-const TOTAL_TIME_TITLE = IS_CHINESE ? '总时间' : 'Total Time';
+const TOTAL_TIME_TITLE = IS_CHINESE ? '總時間' : 'Total Time';
 const AVERAGE_SPEED_TITLE = IS_CHINESE ? '平均速度' : 'Average Speed';
-const TOTAL_DISTANCE_TITLE = IS_CHINESE ? '总距离' : 'Total Distance';
+const TOTAL_DISTANCE_TITLE = IS_CHINESE ? '總距離' : 'Total Distance';
 const TOTAL_ELEVATION_GAIN_TITLE = IS_CHINESE
-  ? '总海拔爬升'
+  ? '總海拔爬升'
   : 'Total Elevation Gain';
 const AVERAGE_HEART_RATE_TITLE = IS_CHINESE ? '平均心率' : 'Average Heart Rate';
 const YEARLY_TITLE = IS_CHINESE ? 'Year' : 'Yearly';
@@ -98,7 +98,7 @@ const MONTHLY_TITLE = IS_CHINESE ? 'Month' : 'Monthly';
 const WEEKLY_TITLE = IS_CHINESE ? 'Week' : 'Weekly';
 const DAILY_TITLE = IS_CHINESE ? 'Day' : 'Daily';
 const LOCATION_TITLE = IS_CHINESE ? 'Location' : 'Location';
-const HOME_PAGE_TITLE = IS_CHINESE ? '首页' : 'Home';
+const HOME_PAGE_TITLE = IS_CHINESE ? '首頁' : 'Home';
 
 const ACTIVITY_TYPES = {
   RUN_GENERIC_TITLE,
