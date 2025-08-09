@@ -81,7 +81,7 @@ const RunTable = ({
       <table className={styles.runTable} cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
-            <th style={{textAlign: 'left'}}>Name</th>
+            <th style={{ textAlign: 'left' }}>Name</th>
             {Array.from(sortFuncMap.keys()).map((k) => (
               <th key={k} onClick={handleClick}>
                 {k}
