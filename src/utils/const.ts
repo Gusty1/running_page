@@ -101,6 +101,8 @@ const DAILY_TITLE = IS_CHINESE ? 'Day' : 'Daily';
 const LOCATION_TITLE = IS_CHINESE ? 'Location' : 'Location';
 const HOME_PAGE_TITLE = IS_CHINESE ? '首頁' : 'Home';
 
+const LOADING_TEXT = IS_CHINESE ? '加载中...' : 'Loading...';
+
 const ACTIVITY_TYPES = {
   RUN_GENERIC_TITLE,
   RUN_TRAIL_TITLE,
@@ -161,6 +163,7 @@ export {
   ACTIVITY_TYPES,
   ACTIVITY_TOTAL,
   HOME_PAGE_TITLE,
+  LOADING_TEXT,
 };
 
 const nike = 'rgb(224,237,94)'; // if you want to change the main color, modify this value in src/styles/variables.scss
