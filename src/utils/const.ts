@@ -90,6 +90,7 @@ const MAX_SPEED_TITLE = IS_CHINESE ? '最快速度' : 'Max Speed';
 const TOTAL_TIME_TITLE = IS_CHINESE ? '總時間' : 'Total Time';
 const AVERAGE_SPEED_TITLE = IS_CHINESE ? '平均速度' : 'Average Speed';
 const TOTAL_DISTANCE_TITLE = IS_CHINESE ? '總距離' : 'Total Distance';
+const AVERAGE_DISTANCE_TITLE = IS_CHINESE ? '平均距離' : 'Average Distance';
 const TOTAL_ELEVATION_GAIN_TITLE = IS_CHINESE
   ? '總海拔爬升'
   : 'Total Elevation Gain';
@@ -131,6 +132,7 @@ const ACTIVITY_TOTAL = {
   TOTAL_TIME_TITLE,
   AVERAGE_SPEED_TITLE,
   TOTAL_DISTANCE_TITLE,
+  AVERAGE_DISTANCE_TITLE,
   TOTAL_ELEVATION_GAIN_TITLE,
   AVERAGE_HEART_RATE_TITLE,
   YEARLY_TITLE,
