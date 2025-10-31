@@ -23,11 +23,6 @@ on:
         type: string
         default: track_data
 
-# Allow one concurrent deployment
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
 permissions:
   contents: read
   pages: write
