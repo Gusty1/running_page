@@ -16,7 +16,7 @@ const getBasePath = () => {
 
 const data: ISiteMetadataResult = {
   siteTitle: 'Running Page',
-  siteUrl: 'https://gusty1.github.io/running_page/',
+  siteUrl: 'https://running-page-psi-nine.vercel.app/',
   logo: 'https://github.com/Gusty1/GustyLittleWorld/blob/gh-pages/images/index/icon-rm.png?raw=true',
   description: 'Personal site and blog',
   navLinks: [
