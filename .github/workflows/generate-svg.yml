@@ -1,4 +1,5 @@
-name: Generate SVGs Daily
+name: Generate SVGs Daily 
+# 由於他的svg都不會保存資料，每次同步upstream/master都會不見，然後她的action貌似除取得data其他都沒有用，所以自己補上
 
 on:
   schedule:
@@ -25,11 +26,12 @@ jobs:
 
       - name: Set current year variable
         run: echo "YEAR=$(date +%Y)" >> $GITHUB_ENV
-
+      
+      # 資料同步(Run sync Strava script)、生成圖片(Make svg GitHub profile + Make month of life + Make year summary)
       - name: Run scripts
         run: |
           python run_page/strava_sync.py --only-run ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }} 
-
+          
           python run_page/gen_svg.py --from-db --title "Gray Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
 
           python run_page/gen_svg.py --from-db --title "Over 1km Runs" --type grid --athlete "Gray" --output assets/grid.svg --special-color yellow --special-color2 red --special-distance 10 --special-distance2 20 --use-localtime --min-distance 1
