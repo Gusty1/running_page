@@ -28,6 +28,8 @@ jobs:
 
       - name: Run scripts
         run: |
+          python run_page/strava_sync.py --only-run ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }} 
+
           python run_page/gen_svg.py --from-db --title "Gray Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
 
           python run_page/gen_svg.py --from-db --title "Over 1km Runs" --type grid --athlete "Gray" --output assets/grid.svg --special-color yellow --special-color2 red --special-distance 10 --special-distance2 20 --use-localtime --min-distance 1
