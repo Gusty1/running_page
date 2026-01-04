@@ -40,7 +40,7 @@ jobs:
 
           python run_page/gen_svg.py --from-db --type monthoflife --birth "1997-02" --special-color "#f9d367" --special-color2 "#f0a1a8" --output assets/mol_running.svg --use-localtime --athlete "Gray" --title "Runner Month of Life" --sport-type running
 
-          python run_page/gen_svg.py --from-db --type year_summary --output assets/year_summary.svg --athlete "Gray"
+
 
       - name: Commit and push if changed
         run: |
