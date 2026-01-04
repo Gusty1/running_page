@@ -3,7 +3,7 @@ name: Generate SVGs Daily
 
 on:
   schedule:
-    - cron: "0 10 * * *"   # 每天 10:00 UTC
+    - cron: "0 2 * * *"   # 02:00 UTC = 10:00 台北時間
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
       - name: Set current year variable
         run: echo "YEAR=$(date +%Y)" >> $GITHUB_ENV
       
-      # 生成圖片(Make svg GitHub profile + Make month of life + Make year summary)
+      # 生成圖片(Make svg GitHub profile + Make month of life)
       - name: Run scripts
         run: |
           python run_page/gen_svg.py --from-db --title "Gray Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
@@ -39,8 +39,6 @@ jobs:
           python run_page/gen_svg.py --from-db --year $YEAR --language zh_CN --title "${YEAR} Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github_${YEAR}.svg --use-localtime --min-distance 1
 
           python run_page/gen_svg.py --from-db --type monthoflife --birth "1997-02" --special-color "#f9d367" --special-color2 "#f0a1a8" --output assets/mol_running.svg --use-localtime --athlete "Gray" --title "Runner Month of Life" --sport-type running
-
-
 
       - name: Commit and push if changed
         run: |
