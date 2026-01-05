@@ -23,6 +23,9 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Set current year variable
+        run: echo "YEAR=$(date +%Y)" >> $GITHUB_ENV
+
       - name: Run YEAR SVG script
         run: |
           python run_page/gen_svg.py --from-db --year $YEAR --language zh_CN --title "${YEAR} Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github_${YEAR}.svg --use-localtime --min-distance 1
