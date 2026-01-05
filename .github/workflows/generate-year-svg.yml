@@ -25,7 +25,7 @@ jobs:
 
       - name: Run YEAR SVG script
         run: |
-          python run_page/gen_svg.py --from-db --type year_summary --output assets/year_summary.svg --athlete "Gray"
+          python run_page/gen_svg.py --from-db --year $YEAR --language zh_CN --title "${YEAR} Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github_${YEAR}.svg --use-localtime --min-distance 1
 
       - name: Commit and push if changed
         run: |
