@@ -32,10 +32,11 @@ jobs:
       # python run_page/gen_svg.py --from-db --type year_summary --output assets/year_summary.svg --athlete "Gray"
       # python run_page/gen_svg.py --from-db --title "Over 1km Runs" --type grid --athlete "Gray" --output assets/grid.svg --special-color yellow --special-color2 red --special-distance 10 --special-distance2 20 --use-localtime --min-distance 1
       # python run_page/gen_svg.py --from-db --type circular --use-localtime
-      # python run_page/gen_svg.py --from-db --type monthoflife --birth "1997-02" --special-color "#f9d367" --special-color2 "#f0a1a8" --output assets/mol_running.svg --use-localtime --athlete "Gray" --title "Runner Month of Life" --sport-type running
+      # python run_page/gen_svg.py --from-db --title "Gray Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
       - name: Run scripts
         run: |
-          python run_page/gen_svg.py --from-db --title "Gray Running" --type github --github-style "align-firstday" --athlete "Gray" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 1
+          python run_page/gen_svg.py --from-db --type monthoflife --birth "1997-02" --special-color "#f9d367" --special-color2 "#f0a1a8" --output assets/mol_running.svg --use-localtime --athlete "Gray" --title "Runner Month of Life" --sport-type running
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
