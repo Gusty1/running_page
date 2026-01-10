@@ -241,8 +241,9 @@ jobs:
           pip install duckdb==1.1.0
           python run_page/save_to_parqent.py
 
+      # 這邊原本是 != 'true'，我感覺是寫錯了，不然每次都會有新的commit
       - name: Push new runs
-        if: env.SAVE_DATA_IN_GITHUB_CACHE != 'true'
+        if: env.SAVE_DATA_IN_GITHUB_CACHE == 'true'
         run: |
           git config --local user.email 'action@github.com'
           git config --local user.name 'GitHub Action'
