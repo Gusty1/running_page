@@ -243,7 +243,7 @@ jobs:
 
       # 這邊原本是 != 'true'，我感覺是寫錯了，不然每次都會有新的commit
       - name: Push new runs
-        if: env.SAVE_DATA_IN_GITHUB_CACHE != true
+        if: env.SAVE_DATA_IN_GITHUB_CACHE == true
         run: |
           git config --local user.email 'action@github.com'
           git config --local user.name 'GitHub Action'
