@@ -241,14 +241,14 @@ jobs:
           pip install duckdb==1.1.0
           python run_page/save_to_parqent.py
 
-      # - name: Push new runs
-      #   if: env.SAVE_DATA_IN_GITHUB_CACHE == true
-      #   run: |
-      #     git config --local user.email 'action@github.com'
-      #     git config --local user.name 'GitHub Action'
-      #     git add .
-      #     git commit -m 'update new runs' || echo 'nothing to commit'
-      #     git push || echo 'nothing to push'
+      - name: Push new runs
+        if: env.SAVE_DATA_IN_GITHUB_CACHE != 'true'
+        run: |
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+          git add .
+          git commit -m 'update new runs' || echo 'nothing to commit'
+          git push || echo 'nothing to push'
 
       - name: Set Output
         id: set_output
