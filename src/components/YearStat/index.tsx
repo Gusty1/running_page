@@ -3,7 +3,7 @@ import Stat from '@/components/Stat';
 import useActivities from '@/hooks/useActivities';
 import { formatPace } from '@/utils/utils';
 import useHover from '@/hooks/useHover';
-import { yearStats, githubYearStats } from '@assets/index';
+import { yearStats } from '@assets/index';
 import { loadSvgComponent } from '@/utils/svgUtils';
 import { SHOW_ELEVATION_GAIN } from '@/utils/const';
 import { DIST_UNIT, M_TO_DIST, M_TO_ELEV } from '@/utils/utils';
