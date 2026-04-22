@@ -33,7 +33,7 @@ jobs:
           python run_page/gpx_sync.py
 
       - name: Check formatting (black)
-        run: black . --diff --color && black . --check
+        run: black . --check --diff --color --target-version py313
 
       - name: Lint with Ruff
         run: |
