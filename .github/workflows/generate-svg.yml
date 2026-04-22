@@ -3,7 +3,7 @@ name: Generate SVGs Daily
 
 on:
   schedule:
-    - cron: "0 2 * * *"   # 台北時間 每天 10:00
+    - cron: "0 2 5 * *"  # 每月 5 號 10:00（台北時間）
   workflow_dispatch:
 
 jobs:
